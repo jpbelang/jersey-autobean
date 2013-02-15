@@ -4,6 +4,7 @@ import com.google.web.bindery.autobean.shared.AutoBean;
 import com.google.web.bindery.autobean.shared.AutoBeanCodex;
 import com.google.web.bindery.autobean.shared.AutoBeanFactory;
 import com.google.web.bindery.autobean.vm.AutoBeanFactorySource;
+import com.sun.jersey.core.util.ReaderWriter;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.WebApplicationException;
@@ -36,7 +37,7 @@ public class AutoBeanBodyReader implements MessageBodyReader<Object> {
 
     public Object readFrom(Class<Object> type, Type genericType, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, String> httpHeaders, InputStream entityStream) throws IOException, WebApplicationException {
 
-        String data = org.apache.commons.io.IOUtils.toString(entityStream);
+        String data = ReaderWriter.readFromAsString(entityStream, mediaType);
         AutoBean s = AutoBeanCodex.decode(factory, type, data);
         return s.as();
     }

@@ -4,6 +4,7 @@ import com.google.web.bindery.autobean.shared.AutoBean;
 import com.google.web.bindery.autobean.shared.AutoBeanCodex;
 import com.google.web.bindery.autobean.shared.AutoBeanUtils;
 import com.google.web.bindery.autobean.shared.Splittable;
+import com.sun.jersey.core.util.ReaderWriter;
 
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
@@ -43,6 +44,6 @@ public class AutoBeanBodyWriter implements MessageBodyWriter<Object> {
         }
 
         Splittable s = AutoBeanCodex.encode(b);
-        entityStream.write(s.getPayload().getBytes());
+        ReaderWriter.writeToAsString(s.getPayload(), entityStream, mediaType);
     }
 }
