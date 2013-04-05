@@ -127,5 +127,17 @@ public class ObjectDecoderTest {
         assertEquals("dave", so.getName());
     }
 
+    @Test
+    public void nonEmptyCollections() throws Exception {
+
+        JSONObject jo = new JSONObject();
+        jo.put("@type", SubOne.class.getName());
+
+        ObjectDecoder od = new ObjectDecoder();
+        SubOne so = od.createObjectFromString(SubOne.class, jo.toString());
+
+        assertNotNull(so.getList());
+    }
+
 
 }
