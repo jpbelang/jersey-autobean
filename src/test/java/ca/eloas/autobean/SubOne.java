@@ -1,5 +1,7 @@
 package ca.eloas.autobean;
 
+import java.util.List;
+
 /**
  * @author JP
  */
@@ -10,4 +12,6 @@ public interface SubOne extends Top {
 
     void setChild(Top t);
     Top getChild();
+
+    List<Top> getList();
 }
