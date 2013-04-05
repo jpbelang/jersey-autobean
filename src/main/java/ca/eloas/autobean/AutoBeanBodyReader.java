@@ -5,6 +5,7 @@ import com.google.web.bindery.autobean.shared.AutoBeanCodex;
 import com.google.web.bindery.autobean.shared.AutoBeanFactory;
 import com.google.web.bindery.autobean.vm.AutoBeanFactorySource;
 import com.sun.jersey.core.util.ReaderWriter;
+import org.json.JSONObject;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.WebApplicationException;
@@ -25,7 +26,7 @@ import java.lang.reflect.Type;
 @Consumes(MediaType.APPLICATION_JSON)
 public class AutoBeanBodyReader implements MessageBodyReader<Object> {
 
-    private AutoBeanFactory factory = AutoBeanFactorySource.create(GenericAutoBeanFactory.class);
+    private ObjectDecoder decoder = new ObjectDecoder();
 
     public AutoBeanBodyReader() {
     }
@@ -38,8 +39,8 @@ public class AutoBeanBodyReader implements MessageBodyReader<Object> {
     public Object readFrom(Class<Object> type, Type genericType, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, String> httpHeaders, InputStream entityStream) throws IOException, WebApplicationException {
 
         String data = ReaderWriter.readFromAsString(entityStream, mediaType);
-        AutoBean s = AutoBeanCodex.decode(factory, type, data);
-        return s.as();
+
+        return decoder.createObjectFromString(type, data);
     }
 
 }

@@ -25,6 +25,7 @@ import java.lang.reflect.Type;
 @Produces(MediaType.APPLICATION_JSON)
 public class AutoBeanBodyWriter implements MessageBodyWriter<Object> {
 
+    private ObjectEncoder encoder = new ObjectEncoder();
 
     public long getSize(Object messageBean, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
         return -1;
@@ -43,7 +44,7 @@ public class AutoBeanBodyWriter implements MessageBodyWriter<Object> {
             throw new IOException(messageBean + " is not an AutoBean");
         }
 
-        Splittable s = AutoBeanCodex.encode(b);
-        ReaderWriter.writeToAsString(s.getPayload(), entityStream, mediaType);
+        String s = encoder.encode(b);
+        ReaderWriter.writeToAsString(s, entityStream, mediaType);
     }
 }
