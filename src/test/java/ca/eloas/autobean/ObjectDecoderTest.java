@@ -27,6 +27,33 @@ public class ObjectDecoderTest {
     }
 
     @Test
+    public void testReferenceType() throws Exception {
+
+        JSONObject jo = new JSONObject();
+        jo.put("@type", SubOne.class.getName());
+        jo.put("name", "dave");
+        jo.put("one", 3);
+
+        JSONObject jo2 = new JSONObject();
+        jo2.put("@type", SubOne.class.getName());
+        jo2.put("name", "paul");
+        jo2.put("one", 4);
+
+        jo.put("child", jo2);
+
+        ObjectDecoder od = new ObjectDecoder();
+        SubOne so = od.createObjectFromString(SubOne.class, jo.toString());
+
+        assertTrue(so instanceof SubOne);
+        assertEquals("dave", so.getName());
+        assertEquals(3, so.getOne());
+
+        Top child = so.getChild();
+        assertTrue(child instanceof SubOne);
+    }
+
+
+    @Test
     public void hintOverClass() throws Exception {
 
         JSONObject jo = new JSONObject();
