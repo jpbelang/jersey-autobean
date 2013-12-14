@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>jersey-autobean</groupId>
+    <groupId>ca.eloas.jersey</groupId>
     <artifactId>jersey-autobean</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -14,6 +14,19 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jersey.version>1.17</jersey.version>
     </properties>
+    <distributionManagement>
+        <repository>
+            <id>algo</id>
+            <name>Actimenu Maven repository of releases</name>
+            <url>${repoReleaseUrl}</url>
+        </repository>
+        <snapshotRepository>
+            <id>algo</id>
+            <name>Actimenu Maven repository of snapshots</name>
+            <url>${repoSnapshotUrl}</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
     <build>
         <plugins>
             <plugin>
