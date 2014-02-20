@@ -31,6 +31,11 @@ class PolymorphicAutobeanVisitor extends AutoBeanVisitor {
             return true;
         }
 
+        if ( ctx.getElementType().isPrimitive() || ctx.getElementType().equals(String.class))  {
+
+            return true;
+        }
+
         Iterator it = value.as().iterator();
         List<Object> list = new ArrayList<Object>();
         while (it.hasNext()) {
